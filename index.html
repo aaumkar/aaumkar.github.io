@@ -513,5 +513,33 @@
       Python, NumPy, Docker, JavaScript, Powershell, Bash, VSCode, Excel VBA,
       Azure DevOps, ReactJS, and Markdown
     </p>
+    <script>
+      // GitHub repository details
+      const owner = "aaumkar";
+      const repo = "aaumkar.github.io";
+
+      // GitHub API URL to fetch repository information
+      const apiUrl = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`;
+
+      // Function to fetch the last commit date from the GitHub API
+      async function fetchLastCommitDate() {
+        try {
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+          const lastCommitDate = new Date(data[0].commit.committer.date);
+          document.getElementById(
+            "lastCommitDate"
+          ).textContent = `Updated: ${lastCommitDate.toDateString()}`;
+        } catch (error) {
+          console.error(error);
+          document.getElementById("lastCommitDate").textContent =
+            "Error fetching data";
+        }
+      }
+
+      // Call the function to fetch and display the last commit date
+      fetchLastCommitDate();
+    </script>
+    <p style="border-top: 1px solid #444444" id="lastCommitDate"></p>
   </body>
 </html>
